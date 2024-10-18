@@ -1,14 +1,4 @@
 {
-  "__inputs": [
-    {
-      "name": "DS_PROMETHEUS_DATASOURCE",
-      "label": "Prometheus Datasource",
-      "description": "",
-      "type": "datasource",
-      "pluginId": "prometheus",
-      "pluginName": "Prometheus"
-    }
-  ],
   "__elements": {},
   "__requires": [
     {
@@ -108,7 +98,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS_DATASOURCE}"
+        "uid": "${datasource}"
       },
       "fieldConfig": {
         "defaults": {
@@ -174,7 +164,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS_DATASOURCE}"
+            "uid": "${datasource}"
           },
           "expr": "sum(node_total_hourly_cost * 24)",
           "hide": false,
@@ -186,7 +176,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS_DATASOURCE}"
+            "uid": "${datasource}"
           },
           "expr": "avg_over_time(\n  sum(node_total_hourly_cost) [30d:1d]\n)",
           "hide": true,
@@ -197,7 +187,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS_DATASOURCE}"
+            "uid": "${datasource}"
           },
           "expr": "1 - (\n  avg_over_time(\n    sum(node_total_hourly_cost) [1d:1h]\n  )\n/\n  avg_over_time(\n    sum(node_total_hourly_cost) [7d:1h]\n  )\n)",
           "hide": true,
@@ -212,7 +202,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS_DATASOURCE}"
+        "uid": "${datasource}"
       },
       "fieldConfig": {
         "defaults": {
@@ -293,7 +283,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS_DATASOURCE}"
+            "uid": "${datasource}"
           },
           "expr": "sum(node_total_hourly_cost)",
           "hide": false,
@@ -310,7 +300,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS_DATASOURCE}"
+        "uid": "${datasource}"
       },
       "fieldConfig": {
         "defaults": {
@@ -373,7 +363,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS_DATASOURCE}"
+            "uid": "${datasource}"
           },
           "expr": "sum(node_total_hourly_cost * 720)",
           "hide": false,
@@ -394,7 +384,7 @@
       "dashes": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS_DATASOURCE}"
+        "uid": "${datasource}"
       },
       "fill": 0,
       "fillGradient": 0,
@@ -434,7 +424,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS_DATASOURCE}"
+            "uid": "${datasource}"
           },
           "expr": "1 - (\n  avg_over_time(\n    sum(node_total_hourly_cost) [1d:1h]\n  )\n/\n  avg_over_time(\n    sum(node_total_hourly_cost) [7d:1h]\n  )\n)",
           "interval": "1h",
@@ -444,7 +434,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS_DATASOURCE}"
+            "uid": "${datasource}"
           },
           "expr": "1 - (\n  avg(sum(node_total_hourly_cost))\n/\n  avg_over_time(\n    sum(node_total_hourly_cost) [1d:1h]\n  )\n)",
           "hide": false,
@@ -495,7 +485,7 @@
       "dashes": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS_DATASOURCE}"
+        "uid": "${datasource}"
       },
       "fill": 0,
       "fillGradient": 0,
@@ -535,7 +525,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS_DATASOURCE}"
+            "uid": "${datasource}"
           },
           "expr": "stdvar_over_time( sum(node_total_hourly_cost) by (instance_type) [7d:1d] ) > 0",
           "instant": false,
@@ -580,7 +570,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS_DATASOURCE}"
+        "uid": "${datasource}"
       },
       "fieldConfig": {
         "defaults": {
@@ -673,7 +663,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS_DATASOURCE}"
+            "uid": "${datasource}"
           },
           "editorMode": "code",
           "expr": "topk( 20, \n  sum(sum(container_memory_allocation_bytes) by (namespace,instance) * on(instance) group_left() (\n\t\t\t\tnode_ram_hourly_cost{} / 1024 / 1024 / 1024 * 730\n\t\t\t\t+ on(node,instance_type) group_left()\n\t\t\t\t\tlabel_replace\n\t\t\t\t\t(\n\t\t\t\t\t\tkube_node_labels{}, \"instance_type\", \"$1\", \"label_node_kubernetes_io_instance_type\", \"(.*)\"\n\t\t\t\t\t) * 0\n\t\t\t)\n  + \n  sum(container_cpu_allocation) by (namespace,instance) * on(instance) group_left() (\n\t  \t\t\tnode_cpu_hourly_cost{} + on(node,instance_type) group_left()\n\t\t  \t\t\tlabel_replace\n\t\t  \t\t\t(\n\t\t  \t\t\t\tkube_node_labels{}, \"instance_type\", \"$1\", \"label_node_kubernetes_io_instance_type\", \"(.*)\"\n\t\t  \t\t\t) * 0\n\t\t  \t) * 730) by (namespace)\n)",
@@ -691,7 +681,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS_DATASOURCE}"
+        "uid": "${datasource}"
       },
       "fieldConfig": {
         "defaults": {
@@ -822,7 +812,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS_DATASOURCE}"
+            "uid": "${datasource}"
           },
           "editorMode": "code",
           "expr": "topk( 20, \n  sum(sum(container_memory_allocation_bytes) by (container,instance) * on(instance) group_left() (\n\t\t\t\tnode_ram_hourly_cost{} / 1024 / 1024 / 1024 * 730\n\t\t\t\t+ on(node,instance_type) group_left()\n\t\t\t\t\tlabel_replace\n\t\t\t\t\t(\n\t\t\t\t\t\tkube_node_labels{}, \"instance_type\", \"$1\", \"label_node_kubernetes_io_instance_type\", \"(.*)\"\n\t\t\t\t\t) * 0\n\t\t\t)\n  + \n  sum(container_cpu_allocation) by (container,instance) * on(instance) group_left() (\n\t  \t\t\tnode_cpu_hourly_cost{} + on(node,instance_type) group_left()\n\t\t  \t\t\tlabel_replace\n\t\t  \t\t\t(\n\t\t  \t\t\t\tkube_node_labels{}, \"instance_type\", \"$1\", \"label_node_kubernetes_io_instance_type\", \"(.*)\"\n\t\t  \t\t\t) * 0\n\t\t  \t)) by (container)\n)",
@@ -850,7 +840,7 @@
       "dashes": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS_DATASOURCE}"
+        "uid": "${datasource}"
       },
       "fieldConfig": {
         "defaults": {
@@ -896,7 +886,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS_DATASOURCE}"
+            "uid": "${datasource}"
           },
           "expr": "sum(sum(container_memory_allocation_bytes) by (namespace,instance) * on(instance) group_left() (\n\t\t\t\tnode_ram_hourly_cost{} / 1024 / 1024 / 1024\n\t\t\t\t+ on(node,instance_type) group_left()\n\t\t\t\t\tlabel_replace\n\t\t\t\t\t(\n\t\t\t\t\t\tkube_node_labels{}, \"instance_type\", \"$1\", \"label_node_kubernetes_io_instance_type\", \"(.*)\"\n\t\t\t\t\t) * 0\n\t\t\t)\n  + \n  sum(container_cpu_allocation) by (namespace,instance) * on(instance) group_left() (\n\t  \t\t\tnode_cpu_hourly_cost{} + on(node,instance_type) group_left()\n\t\t  \t\t\tlabel_replace\n\t\t  \t\t\t(\n\t\t  \t\t\t\tkube_node_labels{}, \"instance_type\", \"$1\", \"label_node_kubernetes_io_instance_type\", \"(.*)\"\n\t\t  \t\t\t) * 0\n\t\t  \t)) by (namespace)",
           "interval": "",
@@ -937,7 +927,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS_DATASOURCE}"
+        "uid": "${datasource}"
       },
       "fieldConfig": {
         "defaults": {
@@ -1021,7 +1011,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS_DATASOURCE}"
+            "uid": "${datasource}"
           },
           "editorMode": "code",
           "expr": "sum(sum(container_memory_allocation_bytes) by (container,namespace, instance) * on(instance) group_left() (\n\t\t\t\tnode_ram_hourly_cost{} / 1024 / 1024 / 1024\n\t\t\t\t+ on(node,instance_type) group_left()\n\t\t\t\t\tlabel_replace\n\t\t\t\t\t(\n\t\t\t\t\t\tkube_node_labels{}, \"instance_type\", \"$1\", \"label_node_kubernetes_io_instance_type\", \"(.*)\"\n\t\t\t\t\t) * 0\n\t\t\t)\n  + \n  sum(container_cpu_allocation) by (container,namespace, instance) * on(instance) group_left() (\n\t  \t\t\tnode_cpu_hourly_cost{} + on(node,instance_type) group_left()\n\t\t  \t\t\tlabel_replace\n\t\t  \t\t\t(\n\t\t  \t\t\t\tkube_node_labels{}, \"instance_type\", \"$1\", \"label_node_kubernetes_io_instance_type\", \"(.*)\"\n\t\t  \t\t\t) * 0\n\t\t  \t)) by (namespace, container)",
@@ -1063,7 +1053,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS_DATASOURCE}"
+        "uid": "${datasource}"
       },
       "fieldConfig": {
         "defaults": {
@@ -1182,7 +1172,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS_DATASOURCE}"
+            "uid": "${datasource}"
           },
           "editorMode": "code",
           "expr": "topk( 20, \n  sum(sum(container_memory_allocation_bytes{namespace=~\"$namespace\"}) by (container, instance, namespace) * on(instance) group_left() (\n\t\t\t\tnode_ram_hourly_cost{} / 1024 / 1024 / 1024\n\t\t\t\t+ on(node,instance_type) group_left()\n\t\t\t\t\tlabel_replace\n\t\t\t\t\t(\n\t\t\t\t\t\tkube_node_labels{}, \"instance_type\", \"$1\", \"label_node_kubernetes_io_instance_type\", \"(.*)\"\n\t\t\t\t\t) * 0\n\t\t\t)\n  + \n  sum(container_cpu_allocation{namespace=~\"$namespace\"}) by (container, instance, namespace) * on(instance) group_left() (\n\t  \t\t\tnode_cpu_hourly_cost{} + on(node,instance_type) group_left()\n\t\t  \t\t\tlabel_replace\n\t\t  \t\t\t(\n\t\t  \t\t\t\tkube_node_labels{}, \"instance_type\", \"$1\", \"label_node_kubernetes_io_instance_type\", \"(.*)\"\n\t\t  \t\t\t) * 0\n\t\t  \t)) by (container)\n)",
@@ -1207,7 +1197,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS_DATASOURCE}"
+        "uid": "${datasource}"
       },
       "fieldConfig": {
         "defaults": {
@@ -1271,7 +1261,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS_DATASOURCE}"
+            "uid": "${datasource}"
           },
           "editorMode": "code",
           "expr": "\n  sum(sum(container_memory_allocation_bytes{namespace=~\"$namespace\"}) by (container,instance) * on(instance) group_left() (\n\t\t\t\tnode_ram_hourly_cost{} / 1024 / 1024 / 1024\n\t\t\t\t+ on(node,instance_type) group_left()\n\t\t\t\t\tlabel_replace\n\t\t\t\t\t(\n\t\t\t\t\t\tkube_node_labels{}, \"instance_type\", \"$1\", \"label_node_kubernetes_io_instance_type\", \"(.*)\"\n\t\t\t\t\t) * 0\n\t\t\t)\n  + \n  sum(container_cpu_allocation{namespace=~\"$namespace\"}) by (container,instance) * on(instance) group_left() (\n\t  \t\t\tnode_cpu_hourly_cost{} + on(node,instance_type) group_left()\n\t\t  \t\t\tlabel_replace\n\t\t  \t\t\t(\n\t\t  \t\t\t\tkube_node_labels{}, \"instance_type\", \"$1\", \"label_node_kubernetes_io_instance_type\", \"(.*)\"\n\t\t  \t\t\t) * 0\n\t\t  \t)) * 720",
@@ -1287,7 +1277,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS_DATASOURCE}"
+        "uid": "${datasource}"
       },
       "fieldConfig": {
         "defaults": {
@@ -1370,7 +1360,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS_DATASOURCE}"
+            "uid": "${datasource}"
           },
           "editorMode": "code",
           "expr": "\n  sum(sum(container_memory_allocation_bytes{namespace=~\"$namespace\"}) by (container,instance) * on(instance) group_left() (\n\t\t\t\tnode_ram_hourly_cost{} / 1024 / 1024 / 1024\n\t\t\t\t+ on(node,instance_type) group_left()\n\t\t\t\t\tlabel_replace\n\t\t\t\t\t(\n\t\t\t\t\t\tkube_node_labels{}, \"instance_type\", \"$1\", \"label_node_kubernetes_io_instance_type\", \"(.*)\"\n\t\t\t\t\t) * 0\n\t\t\t)\n  + \n  sum(container_cpu_allocation{namespace=~\"$namespace\"}) by (container,instance) * on(instance) group_left() (\n\t  \t\t\tnode_cpu_hourly_cost{} + on(node,instance_type) group_left()\n\t\t  \t\t\tlabel_replace\n\t\t  \t\t\t(\n\t\t  \t\t\t\tkube_node_labels{}, \"instance_type\", \"$1\", \"label_node_kubernetes_io_instance_type\", \"(.*)\"\n\t\t  \t\t\t) * 0\n\t\t  \t)) * 720",
@@ -1386,7 +1376,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS_DATASOURCE}"
+        "uid": "${datasource}"
       },
       "fieldConfig": {
         "defaults": {
@@ -1450,7 +1440,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS_DATASOURCE}"
+            "uid": "${datasource}"
           },
           "editorMode": "code",
           "expr": "\n  sum(sum(container_memory_allocation_bytes{namespace=~\"$namespace\"}) by (container,instance) * on(instance) group_left() (\n\t\t\t\tnode_ram_hourly_cost{} / 1024 / 1024 / 1024\n\t\t\t\t+ on(node,instance_type) group_left()\n\t\t\t\t\tlabel_replace\n\t\t\t\t\t(\n\t\t\t\t\t\tkube_node_labels{}, \"instance_type\", \"$1\", \"label_node_kubernetes_io_instance_type\", \"(.*)\"\n\t\t\t\t\t) * 0\n\t\t\t)\n  + \n  sum(container_cpu_allocation{namespace=~\"$namespace\"}) by (container,instance) * on(instance) group_left() (\n\t  \t\t\tnode_cpu_hourly_cost{} + on(node,instance_type) group_left()\n\t\t  \t\t\tlabel_replace\n\t\t  \t\t\t(\n\t\t  \t\t\t\tkube_node_labels{}, \"instance_type\", \"$1\", \"label_node_kubernetes_io_instance_type\", \"(.*)\"\n\t\t  \t\t\t) * 0\n\t\t  \t)) * 24 * 7",
@@ -1467,7 +1457,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS_DATASOURCE}"
+        "uid": "${datasource}"
       },
       "fieldConfig": {
         "defaults": {
@@ -1548,7 +1538,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS_DATASOURCE}"
+            "uid": "${datasource}"
           },
           "editorMode": "code",
           "expr": "topk( 20, \n  sum(sum(container_memory_allocation_bytes{namespace=~\"$namespace\"}) by (namespace,container,instance) * on(instance) group_left() (\n\t\t\t\tnode_ram_hourly_cost{} / 1024 / 1024 / 1024\n\t\t\t\t+ on(node,instance_type) group_left()\n\t\t\t\t\tlabel_replace\n\t\t\t\t\t(\n\t\t\t\t\t\tkube_node_labels{}, \"instance_type\", \"$1\", \"label_node_kubernetes_io_instance_type\", \"(.*)\"\n\t\t\t\t\t) * 0\n\t\t\t)\n  + \n  sum(container_cpu_allocation{namespace=~\"$namespace\"}) by (namespace,container,instance) * on(instance) group_left() (\n\t  \t\t\tnode_cpu_hourly_cost{} + on(node,instance_type) group_left()\n\t\t  \t\t\tlabel_replace\n\t\t  \t\t\t(\n\t\t  \t\t\t\tkube_node_labels{}, \"instance_type\", \"$1\", \"label_node_kubernetes_io_instance_type\", \"(.*)\"\n\t\t  \t\t\t) * 0\n\t\t  \t)) by (namespace)\n)",
@@ -1564,7 +1554,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS_DATASOURCE}"
+        "uid": "${datasource}"
       },
       "fieldConfig": {
         "defaults": {
@@ -1627,7 +1617,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS_DATASOURCE}"
+            "uid": "${datasource}"
           },
           "editorMode": "code",
           "expr": "\n  sum(sum(container_memory_allocation_bytes{namespace=~\"$namespace\"}) by (container,instance) * on(instance) group_left() (\n\t\t\t\tnode_ram_hourly_cost{} / 1024 / 1024 / 1024\n\t\t\t\t+ on(node,instance_type) group_left()\n\t\t\t\t\tlabel_replace\n\t\t\t\t\t(\n\t\t\t\t\t\tkube_node_labels{}, \"instance_type\", \"$1\", \"label_node_kubernetes_io_instance_type\", \"(.*)\"\n\t\t\t\t\t) * 0\n\t\t\t)\n  + \n  sum(container_cpu_allocation{namespace=~\"$namespace\"}) by (container,instance) * on(instance) group_left() (\n\t  \t\t\tnode_cpu_hourly_cost{} + on(node,instance_type) group_left()\n\t\t  \t\t\tlabel_replace\n\t\t  \t\t\t(\n\t\t  \t\t\t\tkube_node_labels{}, \"instance_type\", \"$1\", \"label_node_kubernetes_io_instance_type\", \"(.*)\"\n\t\t  \t\t\t) * 0\n\t\t  \t))",
@@ -1644,7 +1634,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS_DATASOURCE}"
+        "uid": "${datasource}"
       },
       "fieldConfig": {
         "defaults": {
@@ -1756,7 +1746,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS_DATASOURCE}"
+            "uid": "${datasource}"
           },
           "editorMode": "code",
           "expr": "1 - (\n\navg_over_time(\n\n  sum(sum(container_memory_allocation_bytes{namespace=~\"$namespace\"}) by (namespace, container,instance) * on(instance) group_left() (\n\t\t\t\tnode_ram_hourly_cost{} / 1024 / 1024 / 1024\n\t\t\t\t+ on(node,instance_type) group_left()\n\t\t\t\t\tlabel_replace\n\t\t\t\t\t(\n\t\t\t\t\t\tkube_node_labels{}, \"instance_type\", \"$1\", \"label_node_kubernetes_io_instance_type\", \"(.*)\"\n\t\t\t\t\t) * 0\n\t\t\t)\n  + \n  sum(container_cpu_allocation{namespace=~\"$namespace\"}) by (namespace,container,instance) * on(instance) group_left() (\n\t  \t\t\tnode_cpu_hourly_cost{} + on(node,instance_type) group_left()\n\t\t  \t\t\tlabel_replace\n\t\t  \t\t\t(\n\t\t  \t\t\t\tkube_node_labels{}, \"instance_type\", \"$1\", \"label_node_kubernetes_io_instance_type\", \"(.*)\"\n\t\t  \t\t\t) * 0\n\t\t  \t)) by (namespace) [1d:1h]\n            )\n            \n            /\n            \navg_over_time(\n\n  sum(sum(container_memory_allocation_bytes{namespace=~\"$namespace\"}) by (namespace,container,instance) * on(instance) group_left() (\n\t\t\t\tnode_ram_hourly_cost{} / 1024 / 1024 / 1024\n\t\t\t\t+ on(node,instance_type) group_left()\n\t\t\t\t\tlabel_replace\n\t\t\t\t\t(\n\t\t\t\t\t\tkube_node_labels{}, \"instance_type\", \"$1\", \"label_node_kubernetes_io_instance_type\", \"(.*)\"\n\t\t\t\t\t) * 0\n\t\t\t)\n  + \n  sum(container_cpu_allocation{namespace=~\"$namespace\"}) by (namespace,container,instance) * on(instance) group_left() (\n\t  \t\t\tnode_cpu_hourly_cost{} + on(node,instance_type) group_left()\n\t\t  \t\t\tlabel_replace\n\t\t  \t\t\t(\n\t\t  \t\t\t\tkube_node_labels{}, \"instance_type\", \"$1\", \"label_node_kubernetes_io_instance_type\", \"(.*)\"\n\t\t  \t\t\t) * 0\n\t\t  \t)) by (namespace) [7d:1h]\n            )\n            )",
@@ -1768,7 +1758,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS_DATASOURCE}"
+            "uid": "${datasource}"
           },
           "editorMode": "code",
           "expr": "1 - (\n\navg_over_time(\n\n  sum(sum(container_memory_allocation_bytes{namespace=~\"$namespace\"}) by (namespace,container,instance) * on(instance) group_left() (\n\t\t\t\tnode_ram_hourly_cost{} / 1024 / 1024 / 1024\n\t\t\t\t+ on(node,instance_type) group_left()\n\t\t\t\t\tlabel_replace\n\t\t\t\t\t(\n\t\t\t\t\t\tkube_node_labels{}, \"instance_type\", \"$1\", \"label_node_kubernetes_io_instance_type\", \"(.*)\"\n\t\t\t\t\t) * 0\n\t\t\t)\n  + \n  sum(container_cpu_allocation{namespace=~\"$namespace\"}) by (namespace,container,instance) * on(instance) group_left() (\n\t  \t\t\tnode_cpu_hourly_cost{} + on(node,instance_type) group_left()\n\t\t  \t\t\tlabel_replace\n\t\t  \t\t\t(\n\t\t  \t\t\t\tkube_node_labels{}, \"instance_type\", \"$1\", \"label_node_kubernetes_io_instance_type\", \"(.*)\"\n\t\t  \t\t\t) * 0\n\t\t  \t)) by (namespace) [1d:1h]\n            )\n            \n            /\n            \navg_over_time(\n\n  sum(sum(container_memory_allocation_bytes{namespace=~\"$namespace\"}) by (namespace,container,instance) * on(instance) group_left() (\n\t\t\t\tnode_ram_hourly_cost{} / 1024 / 1024 / 1024\n\t\t\t\t+ on(node,instance_type) group_left()\n\t\t\t\t\tlabel_replace\n\t\t\t\t\t(\n\t\t\t\t\t\tkube_node_labels{}, \"instance_type\", \"$1\", \"label_node_kubernetes_io_instance_type\", \"(.*)\"\n\t\t\t\t\t) * 0\n\t\t\t)\n  + \n  sum(container_cpu_allocation{namespace=~\"$namespace\"}) by (namespace,container,instance) * on(instance) group_left() (\n\t  \t\t\tnode_cpu_hourly_cost{} + on(node,instance_type) group_left()\n\t\t  \t\t\tlabel_replace\n\t\t  \t\t\t(\n\t\t  \t\t\t\tkube_node_labels{}, \"instance_type\", \"$1\", \"label_node_kubernetes_io_instance_type\", \"(.*)\"\n\t\t  \t\t\t) * 0\n\t\t  \t)) by (namespace) [14d:1h]\n            )\n            )",
@@ -1784,7 +1774,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS_DATASOURCE}"
+        "uid": "${datasource}"
       },
       "fieldConfig": {
         "defaults": {
@@ -1865,7 +1855,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS_DATASOURCE}"
+            "uid": "${datasource}"
           },
           "editorMode": "code",
           "expr": "topk( 30, \n  sum(sum(container_memory_allocation_bytes{namespace=~\"$namespace\"}) by (container,instance) * on(instance) group_left() (\n\t\t\t\tnode_ram_hourly_cost{} / 1024 / 1024 / 1024\n\t\t\t\t+ on(node,instance_type) group_left()\n\t\t\t\t\tlabel_replace\n\t\t\t\t\t(\n\t\t\t\t\t\tkube_node_labels{}, \"instance_type\", \"$1\", \"label_node_kubernetes_io_instance_type\", \"(.*)\"\n\t\t\t\t\t) * 0\n\t\t\t)\n  + \n  sum(container_cpu_allocation{namespace=~\"$namespace\"}) by (container,instance) * on(instance) group_left() (\n\t  \t\t\tnode_cpu_hourly_cost{} + on(node,instance_type) group_left()\n\t\t  \t\t\tlabel_replace\n\t\t  \t\t\t(\n\t\t  \t\t\t\tkube_node_labels{}, \"instance_type\", \"$1\", \"label_node_kubernetes_io_instance_type\", \"(.*)\"\n\t\t  \t\t\t) * 0\n\t\t  \t)) by (container)\n)",
@@ -1907,7 +1897,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS_DATASOURCE}"
+        "uid": "${datasource}"
       },
       "fieldConfig": {
         "defaults": {
@@ -1970,7 +1960,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS_DATASOURCE}"
+            "uid": "${datasource}"
           },
           "editorMode": "code",
           "expr": "\n  sum(sum(container_memory_allocation_bytes{namespace=~\"$namespace\", container=~\"$app.*\"}) by (container,instance) * on(instance) group_left() (\n\t\t\t\tnode_ram_hourly_cost{} / 1024 / 1024 / 1024\n\t\t\t\t+ on(node,instance_type) group_left()\n\t\t\t\t\tlabel_replace\n\t\t\t\t\t(\n\t\t\t\t\t\tkube_node_labels{}, \"instance_type\", \"$1\", \"label_node_kubernetes_io_instance_type\", \"(.*)\"\n\t\t\t\t\t) * 0\n\t\t\t)\n  + \n  sum(container_cpu_allocation{namespace=~\"$namespace\", container=~\"$app.*\"}) by (container,instance) * on(instance) group_left() (\n\t  \t\t\tnode_cpu_hourly_cost{} + on(node,instance_type) group_left()\n\t\t  \t\t\tlabel_replace\n\t\t  \t\t\t(\n\t\t  \t\t\t\tkube_node_labels{}, \"instance_type\", \"$1\", \"label_node_kubernetes_io_instance_type\", \"(.*)\"\n\t\t  \t\t\t) * 0\n\t\t  \t))",
@@ -1987,7 +1977,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS_DATASOURCE}"
+        "uid": "${datasource}"
       },
       "fieldConfig": {
         "defaults": {
@@ -2067,7 +2057,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS_DATASOURCE}"
+            "uid": "${datasource}"
           },
           "editorMode": "code",
           "expr": "sum(sum(sum(container_memory_allocation_bytes{namespace=~\"$namespace\", container=~\"$app.*\"}) by (namespace,instance,container) * on(instance) group_left() (\n\t\t\t\tnode_ram_hourly_cost{} / 1024 / 1024 / 1024\n\t\t\t\t+ on(node,instance_type) group_left()\n\t\t\t\t\tlabel_replace\n\t\t\t\t\t(\n\t\t\t\t\t\tkube_node_labels{}, \"instance_type\", \"$1\", \"label_node_kubernetes_io_instance_type\", \"(.*)\"\n\t\t\t\t\t) * 0\n\t\t\t) + sum(container_cpu_allocation{namespace=~\"$namespace\", container=~\"$app.*\"}) by (namespace,instance,container) * on(instance) group_left() (\n\t  \t\t\tnode_cpu_hourly_cost{} + on(node,instance_type) group_left()\n\t\t  \t\t\tlabel_replace\n\t\t  \t\t\t(\n\t\t  \t\t\t\tkube_node_labels{}, \"instance_type\", \"$1\", \"label_node_kubernetes_io_instance_type\", \"(.*)\"\n\t\t  \t\t\t) * 0\n\t\t  \t)) by (container))",
@@ -2083,7 +2073,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS_DATASOURCE}"
+        "uid": "${datasource}"
       },
       "fieldConfig": {
         "defaults": {
@@ -2146,7 +2136,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS_DATASOURCE}"
+            "uid": "${datasource}"
           },
           "editorMode": "code",
           "expr": "\n  (sum(sum(container_memory_allocation_bytes{namespace=~\"$namespace\", container=~\"$app.*\"}) by (container,instance) * on(instance) group_left() (\n\t\t\t\tnode_ram_hourly_cost{} / 1024 / 1024 / 1024\n\t\t\t\t+ on(node,instance_type) group_left()\n\t\t\t\t\tlabel_replace\n\t\t\t\t\t(\n\t\t\t\t\t\tkube_node_labels{}, \"instance_type\", \"$1\", \"label_node_kubernetes_io_instance_type\", \"(.*)\"\n\t\t\t\t\t) * 0\n\t\t\t)\n  + \n  sum(container_cpu_allocation{namespace=~\"$namespace\", container=~\"$app.*\"}) by (container,instance) * on(instance) group_left() (\n\t  \t\t\tnode_cpu_hourly_cost{} + on(node,instance_type) group_left()\n\t\t  \t\t\tlabel_replace\n\t\t  \t\t\t(\n\t\t  \t\t\t\tkube_node_labels{}, \"instance_type\", \"$1\", \"label_node_kubernetes_io_instance_type\", \"(.*)\"\n\t\t  \t\t\t) * 0\n\t\t  \t))) * 24",
@@ -2163,7 +2153,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS_DATASOURCE}"
+        "uid": "${datasource}"
       },
       "fieldConfig": {
         "defaults": {
@@ -2261,7 +2251,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS_DATASOURCE}"
+            "uid": "${datasource}"
           },
           "editorMode": "code",
           "expr": "1 - (\n\navg_over_time(\nsum(sum(sum(container_memory_allocation_bytes{namespace=~\"$namespace\", container=~\"$app.*\"}) by (namespace,instance,container) * on(instance) group_left() (\n\t\t\t\tnode_ram_hourly_cost{} / 1024 / 1024 / 1024\n\t\t\t\t+ on(node,instance_type) group_left()\n\t\t\t\t\tlabel_replace\n\t\t\t\t\t(\n\t\t\t\t\t\tkube_node_labels{}, \"instance_type\", \"$1\", \"label_node_kubernetes_io_instance_type\", \"(.*)\"\n\t\t\t\t\t) * 0\n\t\t\t) + sum(container_cpu_allocation{namespace=~\"$namespace\", container=~\"$app.*\"}) by (namespace,instance,container) * on(instance) group_left() (\n\t  \t\t\tnode_cpu_hourly_cost{} + on(node,instance_type) group_left()\n\t\t  \t\t\tlabel_replace\n\t\t  \t\t\t(\n\t\t  \t\t\t\tkube_node_labels{}, \"instance_type\", \"$1\", \"label_node_kubernetes_io_instance_type\", \"(.*)\"\n\t\t  \t\t\t) * 0\n\t\t  \t)) by (container)) [1d:1h]\n\t\t\t\t\t)\n/\n\navg_over_time(\nsum(sum(sum(container_memory_allocation_bytes{namespace=~\"$namespace\", container=~\"$app.*\"}) by (namespace,instance,container) * on(instance) group_left() (\n\t\t\t\tnode_ram_hourly_cost{} / 1024 / 1024 / 1024\n\t\t\t\t+ on(node,instance_type) group_left()\n\t\t\t\t\tlabel_replace\n\t\t\t\t\t(\n\t\t\t\t\t\tkube_node_labels{}, \"instance_type\", \"$1\", \"label_node_kubernetes_io_instance_type\", \"(.*)\"\n\t\t\t\t\t) * 0\n\t\t\t) + sum(container_cpu_allocation{namespace=~\"$namespace\", container=~\"$app.*\"}) by (namespace,instance,container) * on(instance) group_left() (\n\t  \t\t\tnode_cpu_hourly_cost{} + on(node,instance_type) group_left()\n\t\t  \t\t\tlabel_replace\n\t\t  \t\t\t(\n\t\t  \t\t\t\tkube_node_labels{}, \"instance_type\", \"$1\", \"label_node_kubernetes_io_instance_type\", \"(.*)\"\n\t\t  \t\t\t) * 0\n\t\t  \t)) by (container)) [7d:1h]\n\t\t\t\t\t)\n\t\t\t\t\t)",
@@ -2277,7 +2267,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS_DATASOURCE}"
+        "uid": "${datasource}"
       },
       "fieldConfig": {
         "defaults": {
@@ -2340,7 +2330,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS_DATASOURCE}"
+            "uid": "${datasource}"
           },
           "editorMode": "code",
           "expr": "\n  (sum(sum(container_memory_allocation_bytes{namespace=~\"$namespace\", container=~\"$app.*\"}) by (container,instance) * on(instance) group_left() (\n\t\t\t\tnode_ram_hourly_cost{} / 1024 / 1024 / 1024\n\t\t\t\t+ on(node,instance_type) group_left()\n\t\t\t\t\tlabel_replace\n\t\t\t\t\t(\n\t\t\t\t\t\tkube_node_labels{}, \"instance_type\", \"$1\", \"label_node_kubernetes_io_instance_type\", \"(.*)\"\n\t\t\t\t\t) * 0\n\t\t\t)\n  + \n  sum(container_cpu_allocation{namespace=~\"$namespace\", container=~\"$app.*\"}) by (container,instance) * on(instance) group_left() (\n\t  \t\t\tnode_cpu_hourly_cost{} + on(node,instance_type) group_left()\n\t\t  \t\t\tlabel_replace\n\t\t  \t\t\t(\n\t\t  \t\t\t\tkube_node_labels{}, \"instance_type\", \"$1\", \"label_node_kubernetes_io_instance_type\", \"(.*)\"\n\t\t  \t\t\t) * 0\n\t\t  \t))) * 24 * 30",
@@ -2357,7 +2347,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS_DATASOURCE}"
+        "uid": "${datasource}"
       },
       "fieldConfig": {
         "defaults": {
@@ -2437,7 +2427,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS_DATASOURCE}"
+            "uid": "${datasource}"
           },
           "editorMode": "code",
           "expr": "sum(sum(container_memory_allocation_bytes{namespace=~\"$namespace\", container=~\"$app.*\"}) by (namespace,instance,container) * on(instance) group_left() (\n\t\t\t\tnode_ram_hourly_cost{} / 1024 / 1024 / 1024\n\t\t\t\t+ on(node,instance_type) group_left()\n\t\t\t\t\tlabel_replace\n\t\t\t\t\t(\n\t\t\t\t\t\tkube_node_labels{}, \"instance_type\", \"$1\", \"label_node_kubernetes_io_instance_type\", \"(.*)\"\n\t\t\t\t\t) * 0\n\t\t\t) + sum(container_cpu_allocation{namespace=~\"$namespace\", container=~\"$app.*\"}) by (namespace,instance,container) * on(instance) group_left() (\n\t  \t\t\tnode_cpu_hourly_cost{} + on(node,instance_type) group_left()\n\t\t  \t\t\tlabel_replace\n\t\t  \t\t\t(\n\t\t  \t\t\t\tkube_node_labels{}, \"instance_type\", \"$1\", \"label_node_kubernetes_io_instance_type\", \"(.*)\"\n\t\t  \t\t\t) * 0\n\t\t  \t)) by (container)",
@@ -2467,7 +2457,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS_DATASOURCE}"
+            "uid": "${datasource}"
           },
           "fieldConfig": {
             "defaults": {
@@ -2546,7 +2536,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS_DATASOURCE}"
+                "uid": "${datasource}"
               },
               "expr": "sum(pv_hourly_cost) by (persistentvolume) * 24 * 100",
               "interval": "",
@@ -2600,7 +2590,7 @@
         "current": {},
         "datasource": {
           "type": "prometheus",
-          "uid": "${DS_PROMETHEUS_DATASOURCE}"
+          "uid": "${datasource}"
         },
         "definition": "label_values(kube_namespace_labels, namespace)",
         "hide": 0,
@@ -2626,7 +2616,7 @@
         "current": {},
         "datasource": {
           "type": "prometheus",
-          "uid": "${DS_PROMETHEUS_DATASOURCE}"
+          "uid": "${datasource}"
         },
         "definition": "label_values(kube_pod_labels{namespace=~\"$namespace\"}, label_app)",
         "hide": 0,
